@@ -59,7 +59,7 @@ $dizi=[
     ["taze hurma","kuru hurma",["medine hurması","şam hurması"]],
     "muz"
 ];
-
+echo "<strong> MANUAL </strong> <br><br>";
 diziElemanlariniYazdirma($dizi);
 echo "<hr>";
 echo "<strong> RECURSİVE </strong> <br><br>";
