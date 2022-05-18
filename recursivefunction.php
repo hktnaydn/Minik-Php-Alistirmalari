@@ -26,21 +26,26 @@ function diziElemanlariniYazdirma($dizi){
 }
 
 
-function recursiveDiziElemanlariniYazdirma($dizi){
+function recursiveDiziElemanlariniYazdirma($dizi,$katman=0){
     foreach($dizi as $eleman)
     {
         if(! is_array($eleman))
         {
-        echo $eleman."<br>";
+            if($katman==0)
+            {
+                echo "<strong>".$eleman."</strong>"."<br>";
+            }
+            else{
+                echo str_repeat("-",$katman).$eleman."<br>";
+            }
+        
         }
         else{
-            
-            recursiveDiziElemanlariniYazdirma($eleman);
+           
+            recursiveDiziElemanlariniYazdirma($eleman,$katman+2);
         }
     }
 }
-
-
 
 
 $dizi=[
@@ -51,7 +56,8 @@ $dizi=[
     "karpuz",
     ["çekirdekli karpuz","çekirdeksiz karpuz"],
     "hurma",
-    ["taze hurma","kuru hurma",["medine hurması","şam hurması"]]
+    ["taze hurma","kuru hurma",["medine hurması","şam hurması"]],
+    "muz"
 ];
 
 diziElemanlariniYazdirma($dizi);
