@@ -4,37 +4,26 @@
     $gender=NULL;
     $cinsiyetler=["erkek","kadın"];
     $viewed=[];
-    $product_id=$_GET['id'];
+   
     // Giriş yapılmamışsa
     if(!isset($_COOKIE['username']) OR !isset($_COOKIE['gender']))
     {
-        if(isset($_POST['username']) AND isset($_POST['gender']) AND isset($_POST['birthyear']))
-        {
-                    if((date('Y')-$_POST['birthyear'])>=18)
-                    {
-                        $username=$_POST['username'];
-                        $gender=$_POST['gender'];
-                        setcookie('username',$username);
-                        setcookie('gender',$gender);
-                    }
-                    else{
-                        setcookie('error','Yaşınız tutmuyor!',time()+1);
-                        header('Location:login.php');
-                    }
-        }
-        else
-        {
-                        setcookie('error','Bilgiler Eksik!',time()+1);
-                        header('Location:login.php');
-        }
+        header("location:login.php");
     }
     // Giriş Yapılmışsa
     else {
         $username=$_COOKIE['username'];
         $gender=$_COOKIE['gender'];
+        if(isset($_COOKIE['viewproducts'])) $viewed=unserialize($_COOKIE['viewproducts']);
     }
 ?>
 <?php
+ $product_id=$_GET['id'];
+ if(!in_array($product_id,$viewed))
+ {
+     $viewed[]=$product_id;
+     setcookie("viewproducts",serialize($viewed));
+ }
 //Alkoller Dizisi
 $alkoller=[
     "1"=>[
@@ -97,7 +86,7 @@ $alkoller=[
                 foreach($alkoller as $id=>$alkol)
                 { 
                     
-                   if($id==$product_id) {?>
+                   if($id==$product_id) { ?>
                        <div class="col-sm-4">
                            <h4><?php echo $alkol["name"]; ?></h4>
                            <img src="<?=$alkol["image"]; ?>" alt="" class="img-responsive">

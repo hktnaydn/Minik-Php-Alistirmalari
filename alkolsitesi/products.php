@@ -31,9 +31,11 @@
     else {
         $username=$_COOKIE['username'];
         $gender=$_COOKIE['gender'];
+        if(isset($_COOKIE['viewproducts'])) $viewed=unserialize($_COOKIE['viewproducts']);
     }
 ?>
 <?php
+// var_dump($viewed);
 //Alkoller Dizisi
 $alkoller=[
     "1"=>[
@@ -89,9 +91,10 @@ $alkoller=[
         <div class="row">
             <?php 
                 foreach($alkoller as $id=>$alkol)
-                { ?>
-                       <div class="col-sm-4">
-                           <h4><?php echo $alkol["name"]; ?></h4>
+                { 
+                    ?>
+                       <div class="col-sm-4"> 
+                           <h4 <?php if(in_array($id,$viewed)) { ?> style="color:red" <?php }?>><?php echo $alkol["name"]; ?></h4>
                          <a href="product.php?id=<?php echo $id;?>">  <img src="<?=$alkol["image"]; ?>" alt="" class="img-responsive"> </a>
                         </div>
                 <?php
