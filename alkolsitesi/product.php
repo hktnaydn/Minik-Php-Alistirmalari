@@ -4,6 +4,7 @@
     $gender=NULL;
     $cinsiyetler=["erkek","kadın"];
     $viewed=[];
+    $product_id=$_GET['id'];
     // Giriş yapılmamışsa
     if(!isset($_COOKIE['username']) OR !isset($_COOKIE['gender']))
     {
@@ -40,16 +41,21 @@ $alkoller=[
         "name"=>"Bira",
         "image"=>"https://static.birgun.net/resim/haber-detay-resim/2022/01/14/bira-fiyatlari-2022-guncel-967822-5.jpg",
         "price"=>"20",
+        "description"=>"Bira, dünyadaki en eski ve en yaygın alkollü içeceklerden biridir. Su ve çaydan sonra en popüler üçüncü içecek konumundadır. Bira tahıldan üretilirː Yaygın olarak malt arpa kullanılır ama buğday, mısır ve pirinç de kullanılan ürünler arasındadır.",
     ],
     "2"=>[
         "name"=>"Viski",
         "image"=>"https://static.birgun.net/resim/haber-detay-resim/2021/12/14/viski-fiyatlari-2021-guncel-955423-5.jpg",
         "price"=>"100",
+        "description"=>"Viski, arpa, buğday, çavdar veya mısırdan damıtılarak yapılan ve meşe fıçılarda dinlendirilerek olgunlaştırılan bir tür alkollü içkidir. İsmi İrlanda ve İskoçya lehçelerinde yaşam suyu anlamına gelen uisge beathadan gelmektedir.",
+
     ],
     "3"=>[
         "name"=>"Votka",
         "image"=>"https://www.guncelfiyat.net/wp-content/uploads/2017/10/votka-fiyatlari.jpg",
         "price"=>"100",
+        "description"=>"Votka veya orijinal ismiyle Vodka, Polonya ve Rusya menşeili, farklı çeşitlere sahip, şeffaf bir distile alkollü içkidir. Temelde su ve rektifiye etanolden oluşur, bazı diğer maddeler ve aroma izleri bulunabilir.",
+
     ],
 ]
 ?>
@@ -71,7 +77,7 @@ $alkoller=[
     <body>
         <!-- Eğer erkekse Eğer kadınsa -->
     <div class="alert <?php if($cinsiyetler[$gender]=="erkek"){ ?> alert-success <?php } else{  ?> alert-danger <?php   }?>">
-        <strong>Hoşgeldin!</strong> <?php echo $username ?>
+        <strong>Ürün Detayları!</strong> 
     </div>
     <?php 
             if(isset($_COOKIE['error']))
@@ -83,18 +89,24 @@ $alkoller=[
             <?php 
         }
         ?>
-    <a href="logout.php" class="btn btn-danger" role="button">Çıkış Yap</a>
+    <a href="products.php" class="btn btn-info" role="button">AnaSayfa</a>
 <hr>    <br>
         <h2>Ürünlerimiz</h2><br>
         <div class="row">
             <?php 
                 foreach($alkoller as $id=>$alkol)
-                { ?>
+                { 
+                    
+                   if($id==$product_id) {?>
                        <div class="col-sm-4">
                            <h4><?php echo $alkol["name"]; ?></h4>
-                         <a href="product.php?id=<?php echo $id;?>">  <img src="<?=$alkol["image"]; ?>" alt="" class="img-responsive"> </a>
+                           <img src="<?=$alkol["image"]; ?>" alt="" class="img-responsive">
                         </div>
-                <?php
+                        <div class="col-sm-8">
+                           <p><?php echo $alkol["description"]; ?></p>
+                           
+                        </div>
+                <?php }
                 }
             ?>
 </div>
