@@ -50,7 +50,7 @@ function recursiveDiziElemanlariniYazdirma($dizi,$katman=0){
 
 $dizi=[
     "elma",
-    ["yeşil elma","kırmızı elma"],
+    ["yeşil elma","kırmızı elma","sarı elma"],
     "armut",
     ["ekşi armut","tatlı armut"],
     "karpuz",
