@@ -19,8 +19,9 @@
 <body>
 <?php
 include('inc/front-end/navbar.php');
+//Kullanıcı kayıtlı mı?
 yetkimekanizmasi('registered');
-dd($_SESSION)
+echo "MDS akademiye hoşgeldin bu bir uzaktan eğitim sistemidir. ".$_SESSION['name'];
 ?>
 
 

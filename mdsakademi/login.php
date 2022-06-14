@@ -18,32 +18,47 @@
 <body>
 <?php
 include('inc/front-end/navbar.php');
+//Kullanıcı ziyaretçi mi?
 yetkimekanizmasi('guest');
+
+//POST edilmiş mi?
 if($_POST)
 {
+    //POST Verileri dolu mu?
         if($_POST['email']!="" AND $_POST['password']!="")
         {
+            //Post Verilerini değişkenlere al
             $email=$_POST['email'];
             $sifre=$_POST['password'];
+
+
+            //Veriler veritabanında eşleşiyor mu?
             $login=$baglanti->query("SELECT * FROM users where email='".$email."' AND password='".$sifre."'");
+
+            //Veritabanından dönen satırı dizi haline getirme. Eğer satır yoksa false döner
             $user=mysqli_fetch_assoc($login);
-            //dd(mysqli_fetch_assoc($login));
+            
+
+            //Veritabanından satır dönmediyse
             if(!$user)
             {
                 echo "Bilgiler Sistemimizde Eşleşmedi";
             }
             else{
                 
-            
+                    //Veritabanından gelen satırdaki sütunları değişkenlere atama
                     $userid=$user['id'];
                     $email=$user['email'];
                     $name=$user['name'];
                     $typeid=$user['type_id'];
                 
+                    //SESSİON olarak sunucuya kaydetme
                 $_SESSION['user_id']=$userid;
                 $_SESSION['email']=$email;
+                $_SESSION['name']=$name;
                 $_SESSION['type_id']=$typeid;
                 
+                //Anasayfaya yönlendir
                 header('location:index.php');
             }
         }
